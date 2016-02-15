@@ -17,7 +17,7 @@ public class EmployerRestServiceTmp {
   }
 
   @HystrixCommand
-  @RequestMapping("/employer")
+  @RequestMapping("/employerTmp")
   public String getEmployer() {
     return this.employerService.getEmployer();
   }
