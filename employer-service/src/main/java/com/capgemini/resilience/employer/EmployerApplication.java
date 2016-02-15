@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
+/**
+ * Hystrix stream can be accessed under /hystrix.stream
+ */
 @SpringBootApplication
 @EnableHystrix
 public class EmployerApplication {

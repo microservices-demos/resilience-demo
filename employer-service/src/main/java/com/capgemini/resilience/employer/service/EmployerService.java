@@ -12,6 +12,10 @@ public class EmployerService {
 
   private static final double SUCCESS_PROBABILITY = 0.6;
 
+  /**
+   * "Primary method" with defined fallback method.
+   * @return Standard answer
+   */
   @HystrixCommand(fallbackMethod = "getFallbackEmployer")
   public String getEmployer() {
 
@@ -23,6 +27,10 @@ public class EmployerService {
     throw new IllegalStateException("Test exception");
   }
 
+  /**
+   * Example fallback method.
+   * @return Fallback answer
+   */
   public String getFallbackEmployer() {
     return "Fallback employer";
   }
