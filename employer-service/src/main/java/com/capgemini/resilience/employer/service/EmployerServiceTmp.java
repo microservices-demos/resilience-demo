@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 @Service
-public class EmployerService {
+public class EmployerServiceTmp {
 
   private final Random random = new Random();
 

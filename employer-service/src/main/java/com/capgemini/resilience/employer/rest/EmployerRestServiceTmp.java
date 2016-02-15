@@ -1,18 +1,18 @@
 package com.capgemini.resilience.employer.rest;
 
-import com.capgemini.resilience.employer.service.EmployerService;
+import com.capgemini.resilience.employer.service.EmployerServiceTmp;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class EmployerRestService {
+public class EmployerRestServiceTmp {
 
-  private final EmployerService employerService;
+  private final EmployerServiceTmp employerService;
 
   @Autowired
-  public EmployerRestService(EmployerService employerService) {
+  public EmployerRestServiceTmp(EmployerServiceTmp employerService) {
     this.employerService = employerService;
   }
 
