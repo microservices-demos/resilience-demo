@@ -3,6 +3,7 @@ package com.capgemini.resilience.costcenter.rest;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.MediaType;
 
 import com.capgemini.resilience.costcenter.model.CostCenter;
 import com.capgemini.resilience.costcenter.service.CostCenterSearchCriteria;
@@ -26,19 +27,13 @@ public class CostCenterRestService {
     @Inject
     private CostCenterService service;
 
-//    @RequestMapping(path = "/costcenter", method = RequestMethod.GET, produces = {"application/json"})
-//    @ResponseBody
-//    public List<CostCenter> findAll() {
-//        return service.findAll();
-//    }
-
-    @RequestMapping(value = "/costcenter/{id}", method = RequestMethod.GET, produces = {"application/json"})
+    @RequestMapping(value = "/costcenter/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
     @ResponseBody
     public CostCenter get(@PathVariable("id") Long id) {
         return service.read(id);
     }
 
-    @RequestMapping(value = "/costcenter/{id}", method = RequestMethod.DELETE, produces = {"application/json"})
+    @RequestMapping(value = "/costcenter/{id}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON})
     @ResponseBody
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
 
@@ -46,7 +41,7 @@ public class CostCenterRestService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/costcenter", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/costcenter", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON})
     @ResponseBody
     public ResponseEntity<String> saveOrUpdate(@RequestBody CostCenter costCenter) {
 
@@ -54,7 +49,7 @@ public class CostCenterRestService {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/costcenter", method = RequestMethod.GET, produces = {"application/json"})
+    @RequestMapping(value = "/costcenter", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
     @ResponseBody
     List<CostCenter> search(CostCenterSearchCriteria searchCriteria) {
         return service.search(searchCriteria);

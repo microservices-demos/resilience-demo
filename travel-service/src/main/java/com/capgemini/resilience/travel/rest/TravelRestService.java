@@ -1,6 +1,7 @@
 package com.capgemini.resilience.travel.rest;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.MediaType;
 
 import com.capgemini.resilience.travel.model.Travel;
 import com.capgemini.resilience.travel.service.TravelService;
@@ -18,7 +19,7 @@ public class TravelRestService {
     @Inject
     private TravelService service;
 
-    @RequestMapping(value = "/travel/{id}", method = RequestMethod.GET, produces = {"application/json"})
+    @RequestMapping(value = "/travel/{id}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON})
     @ResponseBody
     public TravelTO get(@PathVariable("id") Long id) {
         Travel travel = service.read(id);
@@ -33,14 +34,14 @@ public class TravelRestService {
                 travel.getEmployerNumber());
     }
 
-    @RequestMapping(value = "/travel/{id}", method = RequestMethod.DELETE, produces = {"application/json"})
+    @RequestMapping(value = "/travel/{id}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON})
     @ResponseBody
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         this.service.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/travel", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/travel", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON})
     @ResponseBody
     public ResponseEntity<String> saveOrUpdate(@RequestBody TravelTO travel) {
         this.service.saveOrUpdate(new Travel(
