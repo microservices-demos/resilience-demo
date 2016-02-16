@@ -1,0 +1,2 @@
+insert into travel(id, number, description, status, start_date, end_date, cost_center_number, employer_number) values (1, 3001, 'Travel 1', 1, to_date('2016-02-16', 'YYYY-MM-DD'), to_date('2016-02-19', 'YYYY-MM-DD'), 1001, 2001);
+insert into travel(id, number, description, status, start_date, end_date, cost_center_number, employer_number) values (2, 3002, 'Travel 2', 1, to_date('2016-02-16', 'YYYY-MM-DD'), to_date('2016-02-19', 'YYYY-MM-DD'), 1001, 2002);
