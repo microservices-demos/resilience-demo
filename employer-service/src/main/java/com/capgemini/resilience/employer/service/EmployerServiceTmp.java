@@ -14,6 +14,7 @@ public class EmployerServiceTmp {
 
   /**
    * "Primary method" with defined fallback method.
+   *
    * @return Standard answer
    */
   @HystrixCommand(fallbackMethod = "getFallbackEmployer")
