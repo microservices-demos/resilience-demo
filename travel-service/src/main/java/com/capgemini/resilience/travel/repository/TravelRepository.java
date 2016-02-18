@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Created by ksobkowi on 16.02.2016.
  */
-public interface TravelRepository extends JpaRepository<Travel, Long> {
+public interface TravelRepository extends JpaRepository<Travel, Long>, TravelSearchRepository {
 }

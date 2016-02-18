@@ -8,9 +8,11 @@ import javax.transaction.Transactional;
 import com.capgemini.resilience.travel.model.Status;
 import com.capgemini.resilience.travel.model.Travel;
 import com.capgemini.resilience.travel.repository.TravelRepository;
+import com.capgemini.resilience.travel.service.TravelSearchCriteria;
 import com.capgemini.resilience.travel.service.TravelService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by kso on 16.02.16.
@@ -42,5 +44,10 @@ public class TravelServiceImpl implements TravelService {
     @Override
     public void saveOrUpdate(Travel travel) {
         repository.save(travel);
+    }
+
+    @Override
+    public List<Travel> search(TravelSearchCriteria searchCriteria) {
+        return repository.search(searchCriteria);
     }
 }
