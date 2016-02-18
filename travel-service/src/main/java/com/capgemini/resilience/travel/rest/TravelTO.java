@@ -24,28 +24,28 @@ public class TravelTO implements Serializable {
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate endDate;
     private Status status;
-    private int costCenterNumber;
-    private int employerNumber;
+    private CostCenterTO costCenter;
+    private EmployerTO employer;
 
-    public TravelTO(Long id, int number, String description, LocalDate startDate, LocalDate endDate, Status status, int costCenterNumber, int employerNumber) {
+    public TravelTO(Long id, int number, String description, LocalDate startDate, LocalDate endDate, Status status, CostCenterTO costCenter, EmployerTO employer) {
         this.id = id;
         this.number = number;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
-        this.costCenterNumber = costCenterNumber;
-        this.employerNumber = employerNumber;
+        this.costCenter = costCenter;
+        this.employer = employer;
     }
 
-    public TravelTO(int number, String description, LocalDate startDate, LocalDate endDate, Status status, int costCenterNumber, int employerNumber) {
+    public TravelTO(int number, String description, LocalDate startDate, LocalDate endDate, Status status, CostCenterTO costCenter, EmployerTO employer) {
         this.number = number;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
-        this.costCenterNumber = costCenterNumber;
-        this.employerNumber = employerNumber;
+        this.costCenter = costCenter;
+        this.employer = employer;
     }
 
     public TravelTO() {
@@ -75,11 +75,11 @@ public class TravelTO implements Serializable {
         return status;
     }
 
-    public int getCostCenterNumber() {
-        return costCenterNumber;
+    public CostCenterTO getCostCenter() {
+        return costCenter;
     }
 
-    public int getEmployerNumber() {
-        return employerNumber;
+    public EmployerTO getEmployer() {
+        return employer;
     }
 }
