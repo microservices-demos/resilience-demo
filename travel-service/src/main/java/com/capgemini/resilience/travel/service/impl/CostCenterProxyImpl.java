@@ -7,7 +7,10 @@ import com.capgemini.resilience.travel.rest.CostCenterTO;
 import com.capgemini.resilience.travel.service.CostCenterProxy;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -16,12 +19,25 @@ import org.springframework.web.client.RestTemplate;
 @Named
 public class CostCenterProxyImpl implements CostCenterProxy {
 
+    @Value("${costcenter.service.url}")
+    private String url;
+
     @Override
     @HystrixCommand(fallbackMethod = "getFallbackCostCenter")
     public CostCenterTO get(int number) {
         RestTemplate restTemplate = new RestTemplate();
-        CostCenterTO[] costCenters = restTemplate.getForObject("http://localhost:8083/costcenter?number=" + number, CostCenterTO[].class);
-        return costCenters.length > 0 ? costCenters[0] : null;
+
+        ResponseEntity<List<CostCenterTO>> exchange = restTemplate.exchange(
+                url + "/costcenter?number=" + number,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<CostCenterTO>>() {
+                });
+
+        if (!exchange.getBody().isEmpty())
+            return exchange.getBody().iterator().next();
+        else
+            return null;
     }
 
 
