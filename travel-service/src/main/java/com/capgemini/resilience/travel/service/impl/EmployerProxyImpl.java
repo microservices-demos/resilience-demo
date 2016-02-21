@@ -1,18 +1,15 @@
 package com.capgemini.resilience.travel.service.impl;
 
-import javax.inject.Named;
-
-import com.capgemini.resilience.travel.rest.CostCenterTO;
 import com.capgemini.resilience.travel.rest.EmployerTO;
 import com.capgemini.resilience.travel.service.EmployerProxy;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Named;
 import java.util.List;
 
 /**
@@ -26,7 +23,7 @@ public class EmployerProxyImpl implements EmployerProxy {
 
     @Override
     @HystrixCommand(fallbackMethod = "getFallbackEmployer")
-    public EmployerTO get(int number) {
+    public EmployerTO getEmployer(int number) {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<List<EmployerTO>> exchange = restTemplate.exchange(

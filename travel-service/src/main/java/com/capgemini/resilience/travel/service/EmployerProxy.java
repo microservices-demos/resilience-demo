@@ -7,5 +7,5 @@ import com.capgemini.resilience.travel.rest.EmployerTO;
  */
 public interface EmployerProxy {
 
-    EmployerTO get(int number);
+    EmployerTO getEmployer(int number);
 }

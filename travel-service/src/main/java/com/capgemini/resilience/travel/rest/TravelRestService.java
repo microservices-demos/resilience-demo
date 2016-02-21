@@ -35,13 +35,13 @@ public class TravelRestService {
     @ResponseBody
     public ResponseEntity<TravelTO> get(@PathVariable("id") Long id) {
         Travel travel = service.read(id);
-        CostCenterTO costCenterTO = costCenterProxy.get(travel.getCostCenterNumber());
+        CostCenterTO costCenterTO = costCenterProxy.getCostCenter(travel.getCostCenterNumber());
         if (costCenterTO == null) {
-            return new ResponseEntity<TravelTO>(HttpStatus.PRECONDITION_FAILED);
+            return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
         }
-        EmployerTO employerTO = employerProxy.get(travel.getEmployerNumber());
+        EmployerTO employerTO = employerProxy.getEmployer(travel.getEmployerNumber());
         if (employerTO == null) {
-            return new ResponseEntity<TravelTO>(HttpStatus.PRECONDITION_FAILED);
+            return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
         }
 
         TravelTO travelTO = new TravelTO(
@@ -54,7 +54,7 @@ public class TravelRestService {
                 costCenterTO,
                 employerTO);
 
-        return new ResponseEntity<TravelTO>(travelTO, HttpStatus.OK);
+        return new ResponseEntity<>(travelTO, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/travel", method = RequestMethod.GET, produces = {
@@ -71,8 +71,8 @@ public class TravelRestService {
                         travel.getStartDate(),
                         travel.getEndDate(),
                         travel.getStatus(),
-                        costCenterProxy.get(travel.getCostCenterNumber()),
-                        employerProxy.get(travel.getEmployerNumber()))
+                        costCenterProxy.getCostCenter(travel.getCostCenterNumber()),
+                        employerProxy.getEmployer(travel.getEmployerNumber()))
         ).collect(Collectors.toList());
     }
 
@@ -88,11 +88,11 @@ public class TravelRestService {
     @RequestMapping(value = "/travel", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON})
     @ResponseBody
     public ResponseEntity<String> saveOrUpdate(@RequestBody TravelTO travel) {
-        CostCenterTO costCenterTO = costCenterProxy.get(travel.getCostCenter().getNumber());
+        CostCenterTO costCenterTO = costCenterProxy.getCostCenter(travel.getCostCenter().getNumber());
         if (costCenterTO == null) {
             return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
         }
-        EmployerTO employerTO = employerProxy.get(travel.getEmployer().getNumber());
+        EmployerTO employerTO = employerProxy.getEmployer(travel.getEmployer().getNumber());
         if (employerTO == null) {
             return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
         }

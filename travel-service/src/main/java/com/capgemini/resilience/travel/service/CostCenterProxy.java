@@ -7,6 +7,6 @@ import com.capgemini.resilience.travel.rest.CostCenterTO;
  */
 public interface CostCenterProxy {
 
-    CostCenterTO get(int number);
+    CostCenterTO getCostCenter(int number);
 
 }

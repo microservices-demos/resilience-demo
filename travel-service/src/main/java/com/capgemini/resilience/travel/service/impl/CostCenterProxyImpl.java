@@ -7,6 +7,7 @@ import com.capgemini.resilience.travel.rest.CostCenterTO;
 import com.capgemini.resilience.travel.service.CostCenterProxy;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -23,8 +24,10 @@ public class CostCenterProxyImpl implements CostCenterProxy {
     private String url;
 
     @Override
-    @HystrixCommand(fallbackMethod = "getFallbackCostCenter")
-    public CostCenterTO get(int number) {
+    @HystrixCommand(fallbackMethod = "getFallbackCostCenter",
+            commandProperties = {
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5")})
+    public CostCenterTO getCostCenter(int number) {
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<List<CostCenterTO>> exchange = restTemplate.exchange(
