@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 
+import com.capgemini.resilience.employer.error.ErrorSimulation;
 import com.capgemini.resilience.employer.model.Employer;
 import com.capgemini.resilience.employer.repository.EmployerRepository;
 import com.capgemini.resilience.employer.service.EmployerSearchCriteria;
@@ -15,6 +16,7 @@ import com.capgemini.resilience.employer.service.EmployerService;
  */
 @Transactional
 @Named
+@ErrorSimulation
 public class EmployerServiceImpl implements EmployerService {
 
     @Inject
