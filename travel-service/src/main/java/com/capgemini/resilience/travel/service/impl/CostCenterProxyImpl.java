@@ -1,18 +1,18 @@
 package com.capgemini.resilience.travel.service.impl;
 
-import java.util.List;
-import javax.inject.Named;
-
 import com.capgemini.resilience.travel.rest.CostCenterTO;
 import com.capgemini.resilience.travel.service.CostCenterProxy;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
+import rx.Observable;
+
+import javax.inject.Named;
+import java.util.List;
 
 /**
  * Created by kso on 18.02.16.
@@ -43,6 +43,17 @@ public class CostCenterProxyImpl implements CostCenterProxy {
             return null;
     }
 
+    @Override
+    @HystrixCommand(fallbackMethod = "getFallbackCostCenter",
+            commandProperties = {
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5")})
+    public Observable<CostCenterTO> getCostCenterObservable(int number) {
+        return Observable.create(subscriber -> {
+            subscriber.onStart();
+            subscriber.onNext(getCostCenter(number));
+            subscriber.onCompleted();
+        });
+    }
 
     public CostCenterTO getFallbackCostCenter(int number) {
         return new CostCenterTO(number, "fallback");
