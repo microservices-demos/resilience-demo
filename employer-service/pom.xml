@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>employer</name>
+	<name>employer-service</name>
 	<description>Demo project for Hystrix, Eureka</description>
 
 	<parent>
