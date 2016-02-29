@@ -4,6 +4,8 @@ import com.capgemini.resilience.employer.model.ErrorSimulationConfiguration;
 import com.capgemini.resilience.employer.repository.ErrorSimulationConfigurationRepository;
 import com.capgemini.resilience.employer.service.ErrorSimulationConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -16,11 +18,14 @@ public class ErrorSimulationConfigurationServiceImpl implements ErrorSimulationC
 
     private final ErrorSimulationConfigurationRepository errorSimulationConfigurationRepository;
 
+    private static final String CACHE_NAME = "errorSimulationConfigurationCache";
+
     @Autowired
     public ErrorSimulationConfigurationServiceImpl(ErrorSimulationConfigurationRepository errorSimulationConfigurationRepository) {
         this.errorSimulationConfigurationRepository = errorSimulationConfigurationRepository;
     }
 
+    @CacheEvict(value = CACHE_NAME, allEntries = true)
     @Override
     public ErrorSimulationConfiguration updateErrorSimulationConfigurationService(ErrorSimulationConfiguration errorSimulationConfiguration) {
         Assert.notNull(errorSimulationConfiguration, "errorSimulationConfiguration must be not null");
@@ -38,6 +43,7 @@ public class ErrorSimulationConfigurationServiceImpl implements ErrorSimulationC
         return configuration;
     }
 
+    @Cacheable(CACHE_NAME)
     @Override
     public ErrorSimulationConfiguration getErrorSimulationConfiguration() {
         List<ErrorSimulationConfiguration> configurations = errorSimulationConfigurationRepository.findAll();
