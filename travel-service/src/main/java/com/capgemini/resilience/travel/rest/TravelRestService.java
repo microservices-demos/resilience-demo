@@ -39,6 +39,9 @@ public class TravelRestService {
     @ResponseBody
     public ResponseEntity<TravelTO> get(@PathVariable("id") Long id) {
         Travel travel = service.read(id);
+        if (travel == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         CostCenterTO costCenterTO = costCenterProxy.getCostCenter(travel.getCostCenterNumber());
         if (costCenterTO == null) {
             return new ResponseEntity<>(HttpStatus.PRECONDITION_FAILED);
